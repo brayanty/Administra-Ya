@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*Nav estilos*/
+
+
+.nav__menu {
+    height: 40px;
+}
+
+.nav__menu--blank{
+    filter: invert(100%);
+}
+
+
+.nav__link-show {
+    opacity: 1;
+}
+
+.nav__menu-item {
+    color: #ebe2e2;
+    text-align: center;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: medium;
+}
+.nav__menu-item:hover{
+    border-bottom: #be5cb6 solid;
+}
+
