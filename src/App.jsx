@@ -1,25 +1,26 @@
-import { useState } from 'react'
-import './App.css'
-import Navbar from './components/Navbar'
+import { useState } from "react";
+import Navbar from "./components/Navbar";
+import InventoryModal from "./components/InvetoryModal";
 function App() {
-  const [count, setCount] = useState(0)
-  
+  const [count, setCount] = useState(0);
+
   const itemsNavbar = [
     {
       name: "Conocer más",
-      href: "https://www.zetflix.tech"
+      href: "https://www.zetflix.tech",
     },
     {
       name: "Soporte",
-      href: "https://www.instagram.com/brayan_tech22/"
+      href: "https://www.instagram.com/brayan_tech22/",
     },
-  ]
+  ];
 
   return (
     <>
-    <Navbar nameLogo="Administra Ya!!" items={itemsNavbar}/>
+      <Navbar nameLogo="Administra Ya!!" items={itemsNavbar} />
+      <InventoryModal />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
