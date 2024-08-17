@@ -1,7 +1,9 @@
+import "./index.css";
 import { useState, useEffect } from "react";
 import InventoryModal from "./InventoryModal.jsx";
 import SaleModal from "./SaleModal.jsx";
-import { save, load } from "./saveLoad.js";
+import AlertEvents from "../alertEvents";
+import { save, load } from "../logic/saveLoad.js";
 
 function Inventory() {
   // Estado para almacenar la lista de productos
@@ -21,6 +23,9 @@ function Inventory() {
 
   // Estado para el total acumulado de ventas
   const [totalSales, setTotalSales] = useState(0);
+
+  // Estado para el modal alertEvents
+  const [isModalAlertEvents, setIsAlertEvents] = useState(false);
 
   // Efecto para cargar los datos al montar el componente
   useEffect(() => {
@@ -95,13 +100,12 @@ function Inventory() {
     const saleAmount = amountSold * itemPrice;
 
     // Actualizar la cantidad del producto en el inventario
-    const updatedItems = items
-      .map((item) =>
-        item.product === itemToSell.product
-          ? { ...item, amount: item.amount - soldItem.amount }
-          : item
-      )
-      .filter((item) => item.amount > 0); // Filtra productos con cantidad <= 0
+    const updatedItems = items.map((item) =>
+      item.product === itemToSell.product
+        ? { ...item, amount: item.amount - soldItem.amount }
+        : item
+    );
+    // .filter((item) => item.amount > 0); // Filtra productos con cantidad <= 0
 
     // Actualizar el estado del inventario
     setItems(updatedItems);
@@ -119,7 +123,7 @@ function Inventory() {
   const renderItems = (item, index) => (
     <div
       key={index}
-      className="bg-gray-200 overflow-hidden p-4 border m-1 border-gray-200 rounded-lg shadow-sm flex flex-col justify-between"
+      className="bg-gray-200  overflow-hidden p-4 border m-1 border-gray-200 rounded-lg shadow-sm flex flex-col justify-between"
     >
       <h5
         className={`${
@@ -137,57 +141,49 @@ function Inventory() {
       <div className="text-gray-600 font-bold">
         Ganancias: ${(item.amount * item.price).toLocaleString("es-ES")}
       </div>
-
-      <button
-        onClick={() => handleRemoveItem(index)}
-        className="mt-2 p-1 transition-colors bg-red-500 text-gray-950 rounded hover:bg-red-600"
-      >
-        Eliminar
-      </button>
-      <button
-        onClick={() => openModalAdd(item)}
-        className="mt-2 p-1 transition-colors bg-yellow-500 text-gray-950 rounded hover:bg-yellow-600"
-      >
-        Editar
-      </button>
-      <button
-        onClick={() => {
-          setItemToSell(item);
-          setIsModalSaleOpen(true);
-        }}
-        className="mt-2 p-1 transition-colors bg-green-500 text-gray-950 rounded hover:bg-green-600"
-      >
-        Vender
-      </button>
+      <div className="flex flex-row gap-2 justify-between">
+        <button
+          onClick={() => handleRemoveItem(index)}
+          className="mt-2 pr-3 pl-3 transition-colors font-semibold bg-red-500 text-gray-950 rounded hover:bg-red-600"
+        >
+          Eliminar
+        </button>
+        <button
+          onClick={() => openModalAdd(item)}
+          className="mt-2 p-2 pr-3 pl-3 transition-colors font-semibold bg-yellow-500 text-gray-950 rounded hover:bg-yellow-600"
+        >
+          Editar
+        </button>
+        <button
+          onClick={() => {
+            setItemToSell(item);
+            setIsModalSaleOpen(true);
+          }}
+          className="mt-2 pr-3 pl-3 transition-colors font-semibold bg-green-500 text-gray-950 rounded hover:bg-green-600"
+        >
+          Vender
+        </button>
+      </div>
     </div>
   );
 
   return (
-    <section className="container mx-auto p-6 mt-4">
-      <h4 className="text-4xl font-semibold text-slate-950 dark:text-white mb-4">
+    <section className="p-6 dark:bg-slate-800">
+      <h4 className="text-4xl font-semibold text-slate-950 dark:text-white mb-1">
         Inventario
       </h4>
       <div className="flex gap-2 justify-end mb-2">
         <button
           onClick={() => openModalAdd(null)}
-          className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+          className="bg-transparent transition-all hover:bg-blue-500 dark:text-white text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
         >
           Agregar Inventario
         </button>
-        <button
-          onClick={() => {
-            setItemToSell(null);
-            setIsModalSaleOpen(true);
-          }}
-          className="bg-transparent hover:bg-green-600 text-slate-900 font-semibold hover:text-white py-2 px-4 border border-green-500 hover:border-transparent rounded"
-        >
-          Vender
-        </button>
       </div>
-      <div className="mb-4 text-lg font-semibold">
+      <div className="mb-4 text-lg font-semibold dark:text-white">
         Total de Ventas: ${totalSales.toLocaleString("es-ES")}
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 border mt-2 mb-2">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 border mt-2 mb-2 ">
         {items.length === 0 ? (
           <h3 className="text-center m-4">Agrega elementos en el Inventario</h3>
         ) : (
@@ -206,6 +202,11 @@ function Inventory() {
         onClose={closeModal}
         onSellItem={handleSellItem}
         itemToSell={itemToSell}
+        setIsAlertEvents={setIsAlertEvents}
+      />
+      <AlertEvents
+        isModalAlertEvents={isModalAlertEvents}
+        setIsAlertEvents={setIsAlertEvents}
       />
     </section>
   );

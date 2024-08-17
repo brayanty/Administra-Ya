@@ -2,3 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+.field:has(input:required) label::after {
+    content: " *";
+    color: red;
+}

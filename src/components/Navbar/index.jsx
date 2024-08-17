@@ -1,10 +1,7 @@
 import "./index.css";
 import React from "react";
-import { IoMoon } from "react-icons/io5";
-import { IoSunny } from "react-icons/io5";
-import menu from "/src/assets/menu.png";
 import { useState } from "react";
-function Navbar({ nameLogo, items }) {
+function Navbar({ nameLogo, items, isSelectModeDark, onDarkMode }) {
   window.onscroll = function () {
     scrollVerify();
   };
@@ -24,7 +21,7 @@ function Navbar({ nameLogo, items }) {
     return (
       <li key={index}>
         <a
-          className="nav__menu-item font-bold text-black max-md:text-white"
+          className="nav__menu-item font-bold text-black dark:text-white max-md:text-white"
           target="_blank"
           rel="noopener noreferrer"
           href={href}
@@ -37,9 +34,11 @@ function Navbar({ nameLogo, items }) {
 
   return (
     <>
-      <nav className="container m-0-auto flex gap-1 items-center justify-between h-10  p-6 rounded-full relative z-50">
+      <nav className="flex gap-1 items-center justify-between h-10  p-6 relative z-50 dark:bg-slate-800">
         <div className="flex items-center">
-          <h5 className="text-gray-900 dark:text-white text-2xl">{nameLogo}</h5>
+          <h5 className="text-gray-900 font-extrabold dark:text-white text-2xl">
+            {nameLogo}
+          </h5>
         </div>
         <div
           className={`${
@@ -53,10 +52,23 @@ function Navbar({ nameLogo, items }) {
               Menu
             </h4>
           </div>
-          <ul className="font-poppins nav__menu-items max-md:self-start max-md:m-3 flex gap-4 flex-col md:flex-row">
+          <ul className="font-poppins nav__menu-items max-md:self-start flex ml-4 gap-4 max-md:gap-7 flex-col md:flex-row">
             {items.map((item, index) => {
               return renderItems(item.href, item.name, index);
             })}
+            <li>
+              <button
+                className="w-2"
+                type="button"
+                onClick={() => onDarkMode()}
+              >
+                {isSelectModeDark === "light" ? (
+                  <i className="fa-regular fa-moon fa-xl text-slate-950 max-md:text-stone-50"></i>
+                ) : (
+                  <i className="fa-regular fa-sun fa-xl text-stone-50"></i>
+                )}
+              </button>
+            </li>
           </ul>
 
           <div className="nav__social md:hidden">
@@ -67,7 +79,7 @@ function Navbar({ nameLogo, items }) {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <i className="social__svg hover:scale-125 transition-transform fa-brands fa-instagram fa-2x xl:fa-2x"></i>
+                  <i className="text-white hover:scale-125 transition-transform fa-brands fa-instagram fa-2x xl:fa-2x"></i>
                 </a>
               </li>
               <li>
@@ -76,7 +88,7 @@ function Navbar({ nameLogo, items }) {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <i className="social__svg hover:scale-125 transition-transform fa-brands fa-github fa-2x"></i>
+                  <i className="text-white hover:scale-125 transition-transform fa-brands fa-github fa-2x"></i>
                 </a>
               </li>
               <li>
@@ -85,7 +97,7 @@ function Navbar({ nameLogo, items }) {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <i className="social__svg hover:scale-125 transition-transform fa-brands fa-linkedin fa-2x"></i>
+                  <i className="text-white hover:scale-125 transition-transform fa-brands fa-linkedin fa-2x"></i>
                 </a>
               </li>
             </ul>
@@ -93,16 +105,11 @@ function Navbar({ nameLogo, items }) {
         </div>
         <div
           onClick={handlerClickMenu}
-          className="cursor-pointer md:hidden"
-          aria-expanded={menuON}
+          className={`cursor-pointer md:hidden z-50 ${
+            menuON ? "max-md:text-white" : "text-black dark:text-white"
+          }`}
         >
-          <img
-            className={`nav__menu dark:nav__menu--blank ${
-              menuON ? "nav__menu--blank" : ""
-            }`}
-            src={menu}
-            alt="Logo de menu"
-          />
+          <i className="fa-solid fa-bars fa-3x"></i>
         </div>
       </nav>
     </>

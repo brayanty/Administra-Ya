@@ -1,11 +1,21 @@
+import "./index.css";
 import { useState } from "react";
 
-function SaleModal({ isOpen, onClose, onSellItem, itemToSell }) {
+function SaleModal({
+  isOpen,
+  onClose,
+  onSellItem,
+  itemToSell,
+  setIsAlertEvents,
+}) {
   const [amount, setAmount] = useState("");
 
   const handleSell = () => {
     if (!amount || amount <= 0) {
-      alert("Por favor, ingresa una cantidad válida.");
+      return;
+    }
+    if (amount > itemToSell.amount) {
+      setIsAlertEvents(true);
       return;
     }
 
@@ -17,7 +27,7 @@ function SaleModal({ isOpen, onClose, onSellItem, itemToSell }) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
+    <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-30">
       <form
         onClick={(e) => e.preventDefault()}
         className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md relative"
@@ -40,7 +50,7 @@ function SaleModal({ isOpen, onClose, onSellItem, itemToSell }) {
           </svg>
         </button>
         <h2 className="text-xl font-semibold mb-4">Vender Producto</h2>
-        <div className="mb-4">
+        <div className="field mb-4">
           <label
             htmlFor="amount"
             className="block text-sm font-medium text-gray-700"
@@ -48,6 +58,7 @@ function SaleModal({ isOpen, onClose, onSellItem, itemToSell }) {
             Cantidad a Vender
           </label>
           <input
+            required
             id="amount"
             type="number"
             value={amount}
@@ -58,7 +69,7 @@ function SaleModal({ isOpen, onClose, onSellItem, itemToSell }) {
         </div>
         <button
           onClick={handleSell}
-          className="w-full p-2 bg-green-500 text-white rounded hover:bg-green-600"
+          className="w-full p-2 text-xl bg-green-500 text-black rounded hover:bg-green-600"
         >
           Vender
         </button>
