@@ -2,7 +2,7 @@ import "./index.css";
 import { useState, useEffect } from "react";
 import InventoryModal from "./InventoryModal.jsx";
 import SaleModal from "./SaleModal.jsx";
-import AlertEvents from "../alertEvents";
+import AlertEvents from "../alertEvents/index.jsx";
 import { save, load } from "../logic/saveLoad.js";
 
 function Inventory() {
@@ -168,7 +168,9 @@ function Inventory() {
   );
 
   return (
-    <section className="p-6 dark:bg-slate-800 h-[94vh]">
+    <section
+      className={`p-6 dark:bg-slate-800  ${items == [] ? "" : "h-[94vh]"}`}
+    >
       <h4 className="text-4xl font-semibold text-slate-950 dark:text-white mb-1">
         Inventario
       </h4>

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Navbar from "./components/Navbar";
-import InventoryModal from "./components/InvetoryModal";
+import InventoryModal from "./components/Invetory";
 
 function App() {
   // Inicializar el tema desde localStorage
