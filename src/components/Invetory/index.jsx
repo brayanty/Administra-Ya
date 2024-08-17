@@ -123,7 +123,7 @@ function Inventory() {
   const renderItems = (item, index) => (
     <div
       key={index}
-      className="bg-gray-200  overflow-hidden p-4 border m-1 border-gray-200 rounded-lg shadow-sm flex flex-col justify-between"
+      className="bg-gray-200 p-4 border m-1 border-gray-200 rounded-lg shadow-sm flex flex-col justify-between"
     >
       <h5
         className={`${
@@ -169,7 +169,7 @@ function Inventory() {
 
   return (
     <section
-      className={`p-6 dark:bg-slate-800  ${items == [] ? "" : "h-[94vh]"}`}
+      className={`p-6 dark:bg-slate-800  ${items == [] ? "h-[94vh]" : ""}`}
     >
       <h4 className="text-4xl font-semibold text-slate-950 dark:text-white mb-1">
         Inventario
