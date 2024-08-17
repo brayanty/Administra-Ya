@@ -168,7 +168,7 @@ function Inventory() {
   );
 
   return (
-    <section className="p-6 dark:bg-slate-800">
+    <section className="p-6 dark:bg-slate-800 h-[94vh]">
       <h4 className="text-4xl font-semibold text-slate-950 dark:text-white mb-1">
         Inventario
       </h4>
@@ -183,9 +183,11 @@ function Inventory() {
       <div className="mb-4 text-lg font-semibold dark:text-white">
         Total de Ventas: ${totalSales.toLocaleString("es-ES")}
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 border mt-2 mb-2 ">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 border border-black dark:border-white mt-2 mb-2 ">
         {items.length === 0 ? (
-          <h3 className="text-center m-4">Agrega elementos en el Inventario</h3>
+          <h3 className="text-center m-4 dark:text-white">
+            Agrega elementos en el Inventario
+          </h3>
         ) : (
           items.map((item, index) => renderItems(item, index))
         )}
