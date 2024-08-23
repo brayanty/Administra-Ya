@@ -26,10 +26,12 @@ function App() {
     {
       name: "Conocer más",
       href: "https://www.zetflix.tech",
+      icon: "fa-solid fa-users-line",
     },
     {
       name: "Soporte",
       href: "https://www.instagram.com/brayan_tech22/",
+      icon: "fa-solid fa-gear",
     },
   ];
 

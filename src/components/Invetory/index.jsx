@@ -123,43 +123,48 @@ function Inventory() {
   const renderItems = (item, index) => (
     <div
       key={index}
-      className="bg-gray-200 p-4 border m-1 border-gray-200 rounded-lg shadow-sm flex flex-col justify-between"
+      className="bg-gray-200 max-h-80  p-4 border m-1 border-gray-200 rounded-lg shadow-sm flex flex-row max-md:flex-col max-md:flex justify-between"
     >
-      <h5
-        className={`${
-          item.product.length >= 15 ? "text-2xl overflow-hidden" : "text-3xl"
-        } font-semibold text-gray-800 mb-2 text-wrap `}
-      >
-        {item.product}
-      </h5>
-      <div className="text-gray-700 font-bold">
-        Precio: ${item.price.toLocaleString("es-ES")}
+      <div>
+        <h5
+          className={`${
+            item.product.length >= 15 ? "text-2xl overflow-hidden" : "text-3xl"
+          } font-semibold text-gray-800 mb-2 text-wrap `}
+        >
+          {item.product}
+        </h5>
+        <div className="text-gray-700 font-bold">
+          Precio: ${item.price.toLocaleString("es-ES")}
+        </div>
+        <div className="text-gray-600 font-bold mb-3">
+          Cantidad: {item.amount.toLocaleString("es-ES")}
+        </div>
+        <div className="text-gray-600 font-bold">
+          Ganancias: ${(item.amount * item.price).toLocaleString("es-ES")}
+        </div>
       </div>
-      <div className="text-gray-600 font-bold mb-3">
-        Cantidad: {item.amount.toLocaleString("es-ES")}
-      </div>
-      <div className="text-gray-600 font-bold">
-        Ganancias: ${(item.amount * item.price).toLocaleString("es-ES")}
-      </div>
-      <div className="flex flex-row gap-2 justify-between">
+      <div className="flex flex-row gap-2 max-md:justify-center md:justify-end items-center">
         <button
+          aria-label="button"
           onClick={() => handleRemoveItem(index)}
-          className="mt-2 pr-3 pl-3 transition-colors font-semibold bg-red-500 text-gray-950 rounded hover:bg-red-600"
+          className="text-lg font-bold focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 rounded-lg  px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
         >
           Eliminar
         </button>
         <button
+          aria-label="button"
           onClick={() => openModalAdd(item)}
-          className="mt-2 p-2 pr-3 pl-3 transition-colors font-semibold bg-yellow-500 text-gray-950 rounded hover:bg-yellow-600"
+          className="text-lg font-bold focus:outline-none text-white  bg-yellow-700 hover:bg-yellow-600 focus:ring-4 focus:ring-yellow-300 rounded-lg px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900"
         >
           Editar
         </button>
         <button
+          aria-label="button"
           onClick={() => {
             setItemToSell(item);
             setIsModalSaleOpen(true);
           }}
-          className="mt-2 pr-3 pl-3 transition-colors font-semibold bg-green-500 text-gray-950 rounded hover:bg-green-600"
+          className="text-lg font-bold focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 rounded-lg px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
         >
           Vender
         </button>
@@ -168,9 +173,7 @@ function Inventory() {
   );
 
   return (
-    <section
-      className={`p-6 dark:bg-slate-800  ${items == [] ? "h-[94vh]" : ""}`}
-    >
+    <section className="p-6 dark:bg-slate-800">
       <h4 className="text-4xl font-semibold text-slate-950 dark:text-white mb-1">
         Inventario
       </h4>
@@ -185,7 +188,11 @@ function Inventory() {
       <div className="mb-4 text-lg font-semibold dark:text-white">
         Total de Ventas: ${totalSales.toLocaleString("es-ES")}
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 border border-black dark:border-white mt-2 mb-2 ">
+      <div
+        className={`${
+          items == [] || items.length <= 3 ? "h-[93vh]" : ""
+        } grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-2 border border-black dark:border-white mt-2 mb-2`}
+      >
         {items.length === 0 ? (
           <h3 className="text-center m-4 dark:text-white">
             Agrega elementos en el Inventario

@@ -1,4 +1,4 @@
-function AlertEvents({ isModalAlertEvents, setIsAlertEvents, title, msj }) {
+function AlertEvents({ isModalAlertEvents, setIsAlertEvents }) {
   if (!isModalAlertEvents) return null;
 
   return (
