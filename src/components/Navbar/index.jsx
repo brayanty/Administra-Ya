@@ -17,7 +17,7 @@ function Navbar({ nameLogo, items, isSelectModeDark, onDarkMode }) {
     setMenuON((prevState) => !prevState);
   };
 
-  const renderItems = (href, name, index) => {
+  const renderItems = (href, name, icon, index) => {
     return (
       <li key={index}>
         <a
@@ -26,7 +26,7 @@ function Navbar({ nameLogo, items, isSelectModeDark, onDarkMode }) {
           rel="noopener noreferrer"
           href={href}
         >
-          {name}
+          <i className={`mr-1 ${icon}`}> </i> {name}
         </a>
       </li>
     );
@@ -54,10 +54,11 @@ function Navbar({ nameLogo, items, isSelectModeDark, onDarkMode }) {
           </div>
           <ul className="font-poppins nav__menu-items max-md:self-start flex ml-4 gap-4 max-md:gap-7 flex-col md:flex-row">
             {items.map((item, index) => {
-              return renderItems(item.href, item.name, index);
+              return renderItems(item.href, item.name, item.icon, index);
             })}
             <li>
               <button
+                aria-label="Modedark"
                 className="w-2"
                 type="button"
                 onClick={() => onDarkMode()}
